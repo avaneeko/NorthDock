@@ -1,3 +1,7 @@
+###############################################
+# Nginx build script.
+###############################################
+
 # Install build dependencies
 apk add build-base git pcre2-dev zlib-dev openssl-dev libatomic_ops-dev
 
@@ -7,6 +11,7 @@ cd nginx
 
 # Configure build
 auto/configure \
+    --prefix=/nginx \
     --with-http_ssl_module \
     --with-libatomic \
     --with-threads \
