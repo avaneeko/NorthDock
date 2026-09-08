@@ -19,5 +19,5 @@ auto/configure \
     --with-cc-opt="-O3 -flto -g0 -fstack-check=no -fno-stack-limit -faggressive-loop-optimizations -free" \
     --with-ld-opt="-O3 -flto -g0 -fstack-check=no -fno-stack-limit -faggressive-loop-optimizations -free"
 
-# Build
-make -j$(expr $(nproc) - 1)
+# Build and install
+make -j$(expr $(nproc) - 1) && make install

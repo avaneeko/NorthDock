@@ -5,14 +5,16 @@
 # Build stage
 FROM alpine:20260805 AS build-stage
 
-# 9/7/2026 Should WORKDIR be changed to something else? (Default is "/")
+WORKDIR /build
 COPY ./tools/BuildNginx.sh /tmp/
 RUN sh /tmp/BuildNginx.sh
 
 # Runtime stage
 FROM alpine:20260805 AS runtime-stage
 WORKDIR /nginx
-COPY --from=build-stage /nginx/objs/nginx /nginx/sbin/nginx
+# Important: ./ is mandatory as the destination, because `COPY` copies contents of the folder,
+# not the folder itself.
+COPY --from=build-stage /nginx ./
 COPY ./tools/InstallNginxRuntimeDependencies.sh /tmp/
 RUN sh /tmp/InstallNginxRuntimeDependencies.sh
 COPY ./tools/SetupNginxUserAndLogs.sh /tmp/
