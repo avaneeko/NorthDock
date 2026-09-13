@@ -1,5 +1,6 @@
+set -eu
 # Install build dependencies
-apk add build-base cmake bash ncurses-dev gnutls-dev bzip2-dev lz4-dev xz-dev lzo-dev curl-dev snappy-dev boost-dev libaio-dev
+apk add build-base cmake bash git linux-headers bison perl ncurses-dev gnutls-dev bzip2-dev lz4-dev xz-dev lzo-dev curl-dev snappy-dev boost-dev libaio-dev
 
 # Download source tar archive.
 wget https://mirrors.accretive-networks.net/mariadb///mariadb-12.3.3/source/mariadb-12.3.3.tar.gz
