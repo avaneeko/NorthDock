@@ -30,4 +30,4 @@ RUN /mariadb/scripts/mariadb-install-db \
 # 9/8/2026 Decide which port to use for MariaDB.
 EXPOSE 555
 # 9/8/2026 Create a dedicated mariadb account with appropriate permissions.
-CMD ["/mariadb/bin/mariadbd", "-u", "root", "--datadir='/mariadb/data'"]
+CMD ["/mariadb/bin/mariadbd", "-u", "root", "--datadir=/mariadb/data"]

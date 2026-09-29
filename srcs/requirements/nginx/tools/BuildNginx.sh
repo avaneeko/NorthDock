@@ -3,7 +3,7 @@
 ###############################################
 
 # Install build dependencies
-apk add build-base git pcre2-dev zlib-dev openssl-dev libatomic_ops-dev
+apk add --no-cache build-base git pcre2-dev zlib-dev openssl-dev libatomic_ops-dev
 
 # Get source
 git clone --recursive https://github.com/nginx/nginx
