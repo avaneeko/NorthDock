@@ -36,5 +36,6 @@ COPY ./tools/StartWordpress.sh /tmp/
 
 RUN /bin/ash /tmp/DownloadWordpress.sh
 
-# Test Entry point for now.
+EXPOSE 9000
+
 CMD [ "/bin/ash", "/tmp/StartWordpress.sh" ]
