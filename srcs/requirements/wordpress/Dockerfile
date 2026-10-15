@@ -31,5 +31,10 @@ RUN apk add --no-cache \
 RUN ln -sf /usr/bin/php84 /usr/bin/php && \
     ln -sf /usr/sbin/php-fpm84 /usr/sbin/php-fpm
 
+COPY ./tools/DownloadWordpress.sh /tmp/
+COPY ./tools/StartWordpress.sh /tmp/
+
+RUN /bin/ash /tmp/DownloadWordpress.sh
+
 # Test Entry point for now.
-ENTRYPOINT [ "/bin/ash" ]
+CMD [ "/bin/ash", "/tmp/StartWordpress.sh" ]
