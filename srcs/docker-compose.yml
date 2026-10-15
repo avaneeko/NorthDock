@@ -1,0 +1,94 @@
+services:
+  mariadb:
+    build:
+      context: ./requirements/mariadb
+    image: mariadb
+    container_name: mariadb
+
+    environment:
+      MARIADB_DATABASE: ${MARIADB_DATABASE:?MARIADB_DATABASE is not set.}
+      MARIADB_USER: ${MARIADB_USER:?MARIADB_USER is not set.}
+      MARIADB_PASSWORD: ${MARIADB_PASSWORD:?MARIADB_PASSWORD is not set.}
+      MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD:?MARIADB_ROOT_PASSWORD is not set.}
+
+    volumes:
+       - mariadb:/mariadb_data
+
+    networks:
+      - seaspider
+
+    restart: unless-stopped
+
+  wordpress:
+    build:
+      context: ./requirements/wordpress
+    image: wordpress
+    container_name: wordpress
+
+    environment:
+      MARIADB_DATABASE: ${MARIADB_DATABASE:?MARIADB_DATABASE is not set.}
+      MARIADB_USER: ${MARIADB_USER:?MARIADB_USER is not set.}
+      MARIADB_PASSWORD: ${MARIADB_PASSWORD:?MARIADB_PASSWORD is not set.}
+
+      DOMAIN_NAME: ${DOMAIN_NAME:?DOMAIN_NAME is not set.}
+
+      WORDPRESS_ADMIN_USER: ${WORDPRESS_ADMIN_USER:?WORDPRESS_ADMIN_USER is not set.}
+      WORDPRESS_ADMIN_PASSWORD: ${WORDPRESS_ADMIN_PASSWORD:?WORDPRESS_ADMIN_PASSWORD is not set.}
+      WORDPRESS_ADMIN_EMAIL: ${WORDPRESS_ADMIN_EMAIL:?WORDPRESS_ADMIN_EMAIL is not set.}
+
+      WORDPRESS_USER: ${WORDPRESS_USER:?WORDPRESS_USER is not set.}
+      WORDPRESS_USER_PASSWORD: ${WORDPRESS_USER_PASSWORD:?WORDPRESS_USER_PASSWORD is not set.}
+      WORDPRESS_USER_EMAIL: ${WORDPRESS_USER_EMAIL:?WORDPRESS_USER_EMAIL is not set.}
+
+    depends_on:
+      - mariadb
+
+    volumes:
+      - wordpress:/wordpress
+
+    networks:
+      - seaspider
+
+    restart: unless-stopped
+
+  nginx:
+    build:
+      context: ./requirements/nginx
+    image: nginx
+    container_name: nginx
+
+    ports:
+      - "443:443"
+
+    volumes:
+      - wordpress:/wordpress
+
+    depends_on:
+      - wordpress
+
+    networks:
+      - seaspider
+
+    restart: unless-stopped
+
+networks:
+  seaspider:
+    name: seaspider
+    driver: bridge
+
+volumes:
+  mariadb:
+    name: mariadb
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${VOLUME_MOUNT_DIR:?VOLUME_MOUNT_DIR is not set.}/mariadb
+
+  wordpress:
+    name: wordpress
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${VOLUME_MOUNT_DIR:?VOLUME_MOUNT_DIR is not set.}/wordpress
