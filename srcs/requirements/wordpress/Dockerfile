@@ -31,6 +31,7 @@ RUN apk add --no-cache \
 RUN ln -sf /usr/bin/php84 /usr/bin/php && \
     ln -sf /usr/sbin/php-fpm84 /usr/sbin/php-fpm
 
+COPY conf/php-fpm.conf /etc/php/8.4/fpm/pool.d/www.conf
 COPY ./tools/DownloadWordpress.sh /tmp/
 COPY ./tools/StartWordpress.sh /tmp/
 
