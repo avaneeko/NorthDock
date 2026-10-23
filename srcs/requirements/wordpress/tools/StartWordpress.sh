@@ -16,7 +16,7 @@ done
     cp -r /wordpress_source /wordpress
 
 ! cat ./wp-config.php 2>&1 &&\
-    wp config create \
+    /wordpress/wp config create \
     --dbname="$MARIADB_DATABASE" \
     --dbuser="$MARIADB_USER" \
     --dbpass="$MARIADB_PASSWORD" \
@@ -28,8 +28,8 @@ done
     echo 'Failed to create Wordpress config.' &&\
     exit 1
 
-! wp core is-installed --allow-root >/dev/null 2>&1 &&\
-    wp core install \
+! /wordpress/wp core is-installed --allow-root >/dev/null 2>&1 &&\
+    /wordpress/wp core install \
         --url="https://$DOMAIN_NAME" \
         --title="Inception" \
         --admin_user="$WORDPRESS_ADMIN_USER" \
@@ -39,6 +39,6 @@ done
         --allow-root &&\
     echo 'Installed Wordpress.'
 
-! wp core is-installed --allow-root >/dev/null 2>&1 &&\
+! /wordpress/wp core is-installed --allow-root >/dev/null 2>&1 &&\
     echo 'Failed to install Wordpress.' &&\
     exit 1
