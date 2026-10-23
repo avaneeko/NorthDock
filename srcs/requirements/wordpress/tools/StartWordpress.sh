@@ -47,4 +47,8 @@ if ! /wordpress/wp user get "$WORDPRESS_USER" --allow-root >/dev/null 2>&1; then
         --allow-root
 fi
 
+# Prevent odd domain.com/wordpress/ from appearing. Removes the `/wordpress` part.
+/wordpress/wp option update siteurl "https://$DOMAIN_NAME" --allow-root
+/wordpress/wp option update home "https://$DOMAIN_NAME" --allow-root
+
 exec php-fpm -F
