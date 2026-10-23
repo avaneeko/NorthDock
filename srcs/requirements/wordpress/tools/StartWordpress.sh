@@ -76,3 +76,5 @@ if ! /wordpress/wp user get "$WORDPRESS_USER" --allow-root >/dev/null 2>&1; then
         --user_pass="$WORDPRESS_USER_PASSWORD" \
         --allow-root
 fi
+
+exec php-fpm -F
