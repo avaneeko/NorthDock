@@ -27,4 +27,4 @@ EXPOSE 3306
 # 9/8/2026 Create a dedicated mariadb account with appropriate permissions.
 COPY ./tools/Entry.sh /
 
-CMD ["/bin/ash", "-c", "/Entry.sh"]
+CMD ["/bin/ash", "/Entry.sh"]

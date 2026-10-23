@@ -1,14 +1,10 @@
 #!/bin/ash
 set -eu
 
-! ls /mariadb_data/mysql >/dev/null 2>&1 &&\
-    /mariadb/scripts/mariadb-install-db --user=root --basedir=/mariadb \
+if [ ! -d /mariadb_data/mysql ]; then
+  /mariadb/scripts/mariadb-install-db --user=root --basedir=/mariadb \
     --datadir=/mariadb_data --skip-test-db
-
-# if [ ! -d /mariadb_data/mysql ]; then
-#   /mariadb/scripts/mariadb-install-db --user=root --basedir=/mariadb \
-#     --datadir=/mariadb_data --skip-test-db
-# fi
+fi
 
 # Issue MariaDB credentials.
 umask 077

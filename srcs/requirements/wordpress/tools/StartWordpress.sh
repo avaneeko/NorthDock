@@ -5,7 +5,8 @@ set -euo pipefail
 cd /wordpress
 
 # Spin until mariadb is online and reachable.
-until mariadb-client -h"mariadb" -u"$MARIADB_USER" -p"$MARIADB_PASSWORD" >/dev/null 2>&1
+until mariadb -h mariadb -u"$MARIADB_USER" -p"$MARIADB_PASSWORD" \
+        --skip-ssl -e 'SELECT 1' "$MARIADB_DATABASE" >/dev/null 2>&1
 do
     echo 'Waiting for MariaDB.'
     sleep 1
