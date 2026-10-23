@@ -2,7 +2,7 @@ services:
   mariadb:
     build:
       context: ./requirements/mariadb
-    image: mariadb
+    image: mymariadb
     container_name: mariadb
 
     environment:
@@ -22,7 +22,7 @@ services:
   wordpress:
     build:
       context: ./requirements/wordpress
-    image: wordpress
+    image: mywordpress
     container_name: wordpress
 
     environment:
@@ -41,7 +41,7 @@ services:
       WORDPRESS_USER_EMAIL: ${WORDPRESS_USER_EMAIL:?WORDPRESS_USER_EMAIL is not set.}
 
     depends_on:
-      - mariadb
+      - mymariadb
 
     volumes:
       - wordpress:/wordpress
@@ -64,7 +64,7 @@ services:
       - wordpress:/wordpress
 
     depends_on:
-      - wordpress
+      - mywordpress
 
     networks:
       - seaspider
