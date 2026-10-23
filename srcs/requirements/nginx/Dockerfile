@@ -19,6 +19,7 @@ COPY ./tools/InstallNginxRuntimeDependencies.sh /tmp/
 RUN sh /tmp/InstallNginxRuntimeDependencies.sh
 COPY ./tools/SetupNginxUserAndLogs.sh /tmp/
 RUN sh /tmp/SetupNginxUserAndLogs.sh
+COPY ./conf/nginx.conf /nginx/conf/nginx.conf
 EXPOSE 443
 STOPSIGNAL SIGQUIT
-CMD ["/nginx/sbin/nginx", "-g", "daemon off;"]
+CMD ["/nginx/sbin/nginx", "-c", "/nginx/conf/nginx.conf", "-g", "daemon off;"]
