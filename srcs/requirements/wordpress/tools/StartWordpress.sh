@@ -9,6 +9,11 @@ until mariadb -h mariadb -u"$MARIADB_USER" -p"$MARIADB_PASSWORD" \
         --skip-ssl -e 'SELECT 1' "$MARIADB_DATABASE" >/dev/null 2>&1
 do
     echo 'Waiting for MariaDB.'
+    attempt=$((attempt + 1))
+    if [ "$attempt" -ge 50 ]; then
+        echo "MariaDB failed to initialize after 50 attempts." >&2
+        exit 1
+    fi
     sleep 1
 done
 
