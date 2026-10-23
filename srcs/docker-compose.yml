@@ -41,7 +41,7 @@ services:
       WORDPRESS_USER_EMAIL: ${WORDPRESS_USER_EMAIL:?WORDPRESS_USER_EMAIL is not set.}
 
     depends_on:
-      - mymariadb
+      - mariadb
 
     volumes:
       - wordpress:/wordpress
@@ -64,7 +64,7 @@ services:
       - wordpress:/wordpress
 
     depends_on:
-      - mywordpress
+      - wordpress
 
     networks:
       - seaspider
