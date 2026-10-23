@@ -13,7 +13,7 @@ do
 done
 
 if [ ! -f ./wp-load.php ]; then
-    cp -r /wordpress_source /wordpress
+    cp -a /wordpress_source/. /wordpress/
 fi
 
 # ! cat ./wp-load.php >/dev/null 2>&1 &&\
