@@ -70,8 +70,8 @@ fi
 #     exit 1
 
 # Issue normal user credentials.
-if ! wp user get "$WORDPRESS_USER" --allow-root >/dev/null 2>&1; then
-    wp user create "$WORDPRESS_USER" "$WORDPRESS_USER_EMAIL" \
+if ! /wordpress/wp user get "$WORDPRESS_USER" --allow-root >/dev/null 2>&1; then
+    /wordpress/wp user create "$WORDPRESS_USER" "$WORDPRESS_USER_EMAIL" \
         --role=author \
         --user_pass="$WORDPRESS_USER_PASSWORD" \
         --allow-root
