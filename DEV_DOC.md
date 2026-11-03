@@ -39,3 +39,13 @@ alias DCU='docker compose up'
 alias DCB-WP='docker compose build wordpress'
 alias DCB-MD='docker compose build mariadb'
 alias DCB-NG='docker compose build nginx'
+
+# Basic checks
+To see if there's anything in the database, use the following command to access the database console:
+docker compose exec mariadb /mariadb/bin/mariadb -u$MARIADB_USER -p$MARIADB_PASSWORD
+Once in console, type
+USE $MARIADB_DATABASE;
+SHOW TABLES;
+To see that the database has tables in it, which signifies that it's not empty. You can view
+tables' contents with SELECT. Please note that once in SQL console, you have to type the database
+name manually, since it's not a regular shell.
