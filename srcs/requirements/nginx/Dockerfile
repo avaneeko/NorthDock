@@ -3,14 +3,14 @@
 ###############################################
 
 # Build stage
-FROM alpine:20260805 AS build-stage
+FROM alpine:3.23 AS build-stage
 
 WORKDIR /build
 COPY ./tools/BuildNginx.sh /tmp/
 RUN sh /tmp/BuildNginx.sh
 
 # Runtime stage
-FROM alpine:20260805 AS runtime-stage
+FROM alpine:3.23 AS runtime-stage
 WORKDIR /nginx
 # Important: ./ is mandatory as the destination, because `COPY` copies contents of the folder,
 # not the folder itself.
